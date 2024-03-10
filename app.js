@@ -27,10 +27,12 @@ boxes.forEach((box)=>{
     box.addEventListener("click",()=>{
         if(turn0){
             box.innerText="0";
+            box.style.color="green";
             turn0=false;
         }
         else{
             box.innerText="X";
+            box.style.color="blue";
             turn0=true;
         }
         box.disabled=true;
