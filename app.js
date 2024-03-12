@@ -19,24 +19,27 @@ let winningPattern=[
 
 
 let turn0 =true;
-
+let buttonClicked=true;
 
 // for giving the turns of players
 
 boxes.forEach((box)=>{
     box.addEventListener("click",()=>{
+
         if(turn0){
             box.innerText="0";
             box.style.color="green";
+            box.disabled=true;
             turn0=false;
         }
         else{
             box.innerText="X";
             box.style.color="blue";
+            box.disabled=true;
             turn0=true;
         }
-        box.disabled=true;
         checkWinner();
+        draw();
     })
 });
 
@@ -46,17 +49,21 @@ const enableBoxes=()=>{
     for(let box of boxes){
         box.disabled=false;
         box.innerText="";
+        if(box.disabled == false){
+            count=0;
+        }
     }
 }
 
-for(let box of boxes){
-    if(box.clicked){
+//if the game is drawn
+const draw = ()=>{
+    if(buttonClicked){
         count++;
-    }
-    if(count==9 && checkWinner==false)
-    {
-        msg.innerText="The game is drawn";
-        console.log(count);
+        if(count===9)
+        {
+            msgContainer.classList.remove("hide");
+            msg.innerText=`Game is drawn. Play Again`;
+        }
     }
 }
 
@@ -73,6 +80,7 @@ const disableBoxes=()=>{
     for(let box of boxes)
     {
         box.disabled=true;
+        
     }
 }
 
@@ -95,8 +103,7 @@ const checkWinner = ()=>{
                 showWinner(pos1_Val1);
             }
         }
-
     }
-};
+}
 reset.addEventListener("click",resetBoxes); // reset button event handler
-newBtn.addEventListener("click", resetBoxes); // new game button event handler
+newBtn.addEventListener("click", resetBoxes);  // new button event handler
